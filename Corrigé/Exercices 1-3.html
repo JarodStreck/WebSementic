@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Web Semantique</title>
+	<script src="js/20minrss.js"></script>
+
+</head>
+
+<body>
+
+	<header>
+    <h1>Exercice 1</h1>
+		<nav>
+			<ul>
+				<li>Your navigation bar </li>
+			</ul>
+		</nav>
+	</header>
+
+	<section id="article" itemscope itemtype="https://schema.org/Article">
+
+
+
+	</section>
+
+	<aside>
+		<h2>Aside</h2>
+		<p>Aside content . more likely ads or promotional things</p>
+	</aside>
+
+	<footer>
+		<h1>Your footer</h1>
+	</footer>
+	<script type="text/javascript">
+	rss = new Rss20Min();
+	let data = rss.getFeedFor("accueil");
+
+	var section =document.getElementById("article");
+
+	for(let item of data.getElementsByTagName("item")){
+			// Title
+
+
+			var article = document.createElement("article");
+			var header = document.createElement("header");
+			var title = document.createElement("h2");
+			var content =document.createElement("p");
+			var footer = document.createElement("footer");
+			var fcontent = document.createElement("p");
+			title.innerHTML=item.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+			content.innerHTML=item.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+			fcontent.innerHTML=item.getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
+			article.setAttribute('itemprop',"articleBody");
+			fcontent.setAttribute('itemprop',"datePublished");
+			content.setAttribute('itemprop',"description");
+			section.appendChild(article);
+			article.appendChild(header);
+			header.appendChild(title);
+			article.appendChild(content);
+			article.appendChild(footer);
+			footer.appendChild(fcontent);
+
+	}
+	</script>
+</body>
+
+</html>
